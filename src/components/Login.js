@@ -14,25 +14,37 @@ mutation Auth{
 }
 `
 
+
 export default function Login() {
   const[username,setUsername]=useState("karl.kroeber@thekey.technology")
   const[passwort,setPasswort]=useState("testtest")
+  
+
+
+
+
 
   const [createAuth, { data, loading, error }] = useMutation(CREATE_AUTH_MUTATION, {
-    variables: {
-     email: username,
-    password: passwort
+    onCompleted({Auth}) {
+      if (Auth) {
+        console.log(Auth.login.token)
+        localStorage.setItem('token', Auth.login.token );
+        localStorage.setItem('userId',Auth.login.userId);
+      
+      }
     }
-  
   })
   if (loading) return 'Submitting...';
   if (error) return `Submission error! ${error.message}`;
-  console.log(data)
+
+
+
   return (
     <div>
         <form   onSubmit={(e) => {
         e.preventDefault();
         createAuth();
+     
       }}>
 <div>
   <label htmlFor='username'>Username</label>
@@ -44,6 +56,7 @@ export default function Login() {
 </div>
 <button type="submit">Log in</button>
         </form>
+   
     </div>
   )
 }
