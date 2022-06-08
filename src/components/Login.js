@@ -2,9 +2,9 @@ import React,{useState} from 'react'
 import { useMutation, gql } from '@apollo/client'
 
 const CREATE_AUTH_MUTATION= gql`
-mutation {
+mutation Auth{
   Auth {
-    login(input: { email: "string", password: "string" }) {
+    login(input: { email: "karl.kroeber@thekey.technology", password:"testtest" }) {
       token
       userId
      
@@ -18,12 +18,16 @@ export default function Login() {
   const[username,setUsername]=useState("karl.kroeber@thekey.technology")
   const[passwort,setPasswort]=useState("testtest")
 
-  const [createAuth] = useMutation(CREATE_AUTH_MUTATION, {
+  const [createAuth, { data, loading, error }] = useMutation(CREATE_AUTH_MUTATION, {
     variables: {
      email: username,
-      password: passwort
+    password: passwort
     }
+  
   })
+  if (loading) return 'Submitting...';
+  if (error) return `Submission error! ${error.message}`;
+  console.log(data)
   return (
     <div>
         <form   onSubmit={(e) => {
