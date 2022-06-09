@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React from 'react'
 import { useMutation, gql } from '@apollo/client'
 import "./Login.css"
 
@@ -18,14 +18,6 @@ mutation Auth{
 
 
 export default function Login() {
-  const[username,setUsername]=useState("karl.kroeber@thekey.technology")
-  const[passwort,setPasswort]=useState("testtest")
-  
-
-
-
-
-
   const [createAuth, { data, loading, error }] = useMutation(CREATE_AUTH_MUTATION, {
     onCompleted({Auth}) {
       if (Auth) {
