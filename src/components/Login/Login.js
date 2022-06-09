@@ -6,7 +6,7 @@ import "./Login.css"
 const CREATE_AUTH_MUTATION= gql`
 mutation Auth{
   Auth {
-    login(input: { email: "karl.kroeber@thekey.technology", password:"testtest" }) {
+    login(input: { email:"karl.kroeber@thekey.technology", password:"testtest"}) {
       token
       userId
      
@@ -16,8 +16,7 @@ mutation Auth{
 }
 `
 
-
-const Login:React.FC=()=> {
+const Login=()=> {
   const [createAuth, { data, loading, error }] = useMutation(CREATE_AUTH_MUTATION, {
     onCompleted({Auth}) {
       if (Auth) {

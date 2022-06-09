@@ -16,12 +16,11 @@ query Learn{
   }
 }
 `;
-const CourseList: React.FC=()=> {
-    const { loading, error, data } = useQuery(GET_LIST,{
-    
-    });
+const CourseList=()=> {
+    const { loading, error, data } = useQuery(GET_LIST);
 
-
+if (loading) return "Loading"
+if(error) return `Error: ${error.message}`
 
   return (
     <div>
