@@ -1,10 +1,12 @@
 import React from 'react'
 import "./Header.css"
 
-export default function Header() {
+ const Header:React.FC=()=> {
   return (
-    <div class="headerCont">
+    <div className="headerCont">
         <div className='companyName'>INFECTOPHARM</div>
     </div>
   )
 }
+
+export default Header;

@@ -7,18 +7,34 @@ import { ApolloClient, InMemoryCache, ApolloProvider,gql } from "@apollo/client"
 const client = new ApolloClient({
   uri: 'https://staging.api.wissenwirkt.com/api/graphql',
   cache: new InMemoryCache(),
+  headers: {
+   
+   "X-Auth-Token":localStorage.getItem('token') ||"",
+   "X-Auth-Account-Id":localStorage.getItem("userId") || ""
+}
+   
 });
-client
+/* console.log("tok",localStorage.getItem("token"))
+   client
   .query({
     query: gql`
-      query Ping {
-        Ping{
-          ping
-        }
+      query Learn{
+  Learn {
+    LearnOpportunities(
+      first: 20
+    ) {
+      edges{node{icon{url},title}
+       
       }
+
+    }
+ 
+
+  }
+}
     `
   })
-  .then(result => console.log(result));
+  .then(result => console.log(result));    */
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

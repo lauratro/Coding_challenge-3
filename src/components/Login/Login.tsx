@@ -17,7 +17,7 @@ mutation Auth{
 `
 
 
-export default function Login() {
+const Login:React.FC=()=> {
   const [createAuth, { data, loading, error }] = useMutation(CREATE_AUTH_MUTATION, {
     onCompleted({Auth}) {
       if (Auth) {
@@ -28,12 +28,15 @@ export default function Login() {
       }
     }
   })
-  if (loading) return 'Submitting...';
-  if (error) return `Submission error! ${error.message}`;
+
+  
 
 console.log(data)
 
   return (
+    <div>
+      {loading && <p>Submitting....</p>}
+      {error && <p>Submission error! ${error.message}</p> }
     <div>
         <form  className='formContainer'  onSubmit={(e) => {
         e.preventDefault();
@@ -54,5 +57,7 @@ console.log(data)
         </form>
    
     </div>
+    </div>
   )
 }
+export default Login;
