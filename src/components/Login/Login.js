@@ -4,9 +4,9 @@ import "./Login.css"
 
 
 const CREATE_AUTH_MUTATION= gql`
-mutation Auth{
+mutation Auth($email:String!,$password:String!){
   Auth {
-    login(input: { email:"karl.kroeber@thekey.technology", password:"testtest"}) {
+    login(input: { email:$email, password:$password}) {
       token
       userId
      
@@ -17,20 +17,18 @@ mutation Auth{
 `
 
 const Login=()=> {
-  const [createAuth, { data, loading, error }] = useMutation(CREATE_AUTH_MUTATION, {
-    onCompleted({Auth}) {
-      if (Auth) {
-        console.log(Auth.login.token)
-        localStorage.setItem('token', Auth.login.token );
-        localStorage.setItem('userId',Auth.login.userId);
-      
-      }
-    }
-  })
+  const getData=(data)=>{
+    localStorage.setItem('token', data.Auth.login.token );
+    localStorage.setItem('userId',data.Auth.login.userId);
+    console.log(localStorage.getItem("token"))
+  }
+  const [createAuth, { data, loading, error }] = useMutation(CREATE_AUTH_MUTATION,{variables:{
+email:"karl.kroeber@thekey.technology",password:"testtest"
+  }})
 
   
 
-console.log(data)
+  if(data)getData(data)
 
   return (
     <div>
